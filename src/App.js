@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import NavBar from "./Components/NavBar";
+import AddBooks from "./Pages/AddBooks";
+import AudioBooks from "./Pages/AudioBooks";
+import Dashboard from "./Pages/Dashboard";
+import FeedBack from "./Pages/FeedBack";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TextBooks from "./Pages/TextBooks";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar/>
+      
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/add-books" element={<AddBooks />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/feedback" element={<FeedBack />} />
+          <Route path="/audio-books" element={<AudioBooks />} />
+          <Route path="/text-books" element={<TextBooks />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
