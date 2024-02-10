@@ -55,8 +55,8 @@ function AddBooks() {
 
 
                             </div>
-                            <button class="btn btn-primary" type="submit">
-                                <span class="spinner-grow spinner-grow-sm" type ="submit" aria-hidden="true"></span>&nbsp;
+                            <button className="btn btn-primary" type="submit">
+                                <span className="spinner-grow spinner-grow-sm" type ="submit" aria-hidden="true"></span>&nbsp;
                                 <span role="status">Add Book</span>
                             </button>
                         </form>

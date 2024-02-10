@@ -1,6 +1,6 @@
-const storeData = (storageString,data)=>{
+export const storeData = (storageString,data)=>{
     localStorage.setItem(storageString,data)
 }
-const retriveData = (storageString)=>{
-    localStorage.getItem(storageString);
+export const retriveData = (storageString)=>{
+    return localStorage.getItem(storageString);
 }

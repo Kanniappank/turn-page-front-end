@@ -29,8 +29,8 @@ function FeedBack() {
                                 <textarea rows="5" {...register('feedback')} className={`form-control ${errors.feedback ? 'is-invalid' : ''}`} id="exampleInputPassword1" placeholder="comments" />
                                 <div className='invalid-feedback'>{errors.feedback?.message}</div>
                             </div>
-                            <button class="btn btn-primary" type="submit">
-                                <span class="spinner-grow spinner-grow-sm" type ="submit" aria-hidden="true"></span>&nbsp;
+                            <button className="btn btn-primary" type="submit">
+                                <span className="spinner-grow spinner-grow-sm" type ="submit" aria-hidden="true"></span>&nbsp;
                                 <span role="status">Thank you</span>
                             </button>
                         </form>
