@@ -4,8 +4,8 @@ import { retriveData } from "./storage";
 axios.defaults.baseURL = `http://localhost:8000/`;
 const registerURL = 'register';
 const loginURL = 'login';
-const textBooksUrl = 'text-books'
-const audioBooksUrl = 'audio-books'
+const textBooksUrl = `text-books/${retriveData('userId')}`;
+const audioBooksUrl = `audio-books/${retriveData('userId')}`
 const feedbackUrl = 'feedback'
 const addBookUrl = 'add-book'
 
@@ -57,6 +57,7 @@ export const postNewBook = async (inputs) => {
             book_description: inputs.description,
             book_format: inputs.type == 'audio' ? 1 : 0
         }
+        console.log('post new book',data)
 
         const response = await axios.post(addBookUrl, data);
         if (response) {
@@ -87,6 +88,7 @@ export const loginApi = async (inputs) => {
         // const response = await fetch('http://localhost:8000/login',requestOptions);
         console.log('from api.js', response);
         if (response) {
+            
             return response.data;
         }
         else {
@@ -101,6 +103,7 @@ export const loginApi = async (inputs) => {
 }
 
 export const getTextBooks = async () => {
+
     const response = await axios.get(textBooksUrl);
     if (response) {
         return response.data

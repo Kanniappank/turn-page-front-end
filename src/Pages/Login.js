@@ -27,7 +27,6 @@ function Login() {
             setResponseMessage(responseData);
             if (responseData.success) {
                 toast.success(responseData.message);
-                storeData('userId',responseData.userId);
                 navigate('/text-books');
 
             }
