@@ -8,6 +8,7 @@ const textBooksUrl = `text-books/${retriveData('userId')}`;
 const audioBooksUrl = `audio-books/${retriveData('userId')}`
 const feedbackUrl = 'feedback'
 const addBookUrl = 'add-book'
+const deleteBookUrl = `delete-books`
 
 export const registerApi = async (inputs) => {
     try {
@@ -112,6 +113,15 @@ export const getTextBooks = async () => {
 }
 export const getAudioBooks = async () => {
     const response = await axios.get(audioBooksUrl);
+    if (response) {
+        return response.data
+    }
+
+}
+
+export const deleteBook = async (book_id) => {
+    const response = await axios.delete(deleteBookUrl+`/${book_id}`);
+    console.log('delete response',response)
     if (response) {
         return response.data
     }

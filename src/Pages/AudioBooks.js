@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import bookImg from '../Assets/bookImg.jpg'
 import { FaPlay } from "react-icons/fa";
+import { deleteBook } from '../Services/Api';
 import { AiTwotoneDelete } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import {getAudioBooks} from '../Services/Api'
@@ -22,6 +23,15 @@ function AudioBooks() {
       toast.error(response.message);
     }
   }
+  const deleteBookin=async(book_id)=>{
+    const response = await deleteBook(book_id);
+    if(response.success){
+      toast.success(response.message);
+    }
+    getData();
+
+
+  }
   return (
     <div>
       <div className="container">
@@ -35,7 +45,7 @@ function AudioBooks() {
                 <p className="card-text">{item.book_description}</p>
                 <div className='d-flex justify-content-between'>
                   <a href={item.book_link} target="_blank"><FaPlay size={20} /><label>View</label></a>
-                  <a href=''><AiTwotoneDelete size={20} /><label>Delete</label></a>
+                  <a href='#'><AiTwotoneDelete size={20} onClick={()=>  deleteBookin(item.book_id)}/><label>Delete</label></a>
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { FaRegEye } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {getTextBooks} from '../Services/Api'
+import {deleteBook, getTextBooks} from '../Services/Api'
 import { retriveData } from '../Services/storage';
 
 function TextBooks() {
@@ -23,6 +23,15 @@ function TextBooks() {
       toast.error(response.message);
     }
   }
+  const deleteBookin=async(book_id)=>{
+    const response = await deleteBook(book_id);
+    if(response.success){
+      toast.success(response.message);
+    }
+    getData();
+
+
+  }
   
   return (
     <div>
@@ -37,7 +46,7 @@ function TextBooks() {
                 <p className="card-text">{item.book_description}</p>
                 <div className='d-flex justify-content-between'>
                   <a href={item.book_link} target="_blank"><FaRegEye size={20} /><label>View</label></a>
-                  <a href=''><AiTwotoneDelete size={20} /><label>Delete</label></a>
+                  <a href='#empty'><AiTwotoneDelete size={20} onClick={()=>  deleteBookin(item.book_id)}/><label>Delete</label></a>
                 </div>
               </div>
             </div>
@@ -46,6 +55,7 @@ function TextBooks() {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   )
 }
