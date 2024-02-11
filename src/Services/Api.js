@@ -1,30 +1,75 @@
 import axios from "axios";
+import { retriveData } from "./storage";
 
 axios.defaults.baseURL = `http://localhost:8000/`;
 const registerURL = 'register';
 const loginURL = 'login';
 const textBooksUrl = 'text-books'
 const audioBooksUrl = 'audio-books'
+const feedbackUrl = 'feedback'
+const addBookUrl = 'add-book'
 
 export const registerApi = async (inputs) => {
     try {
-        
+
         let data = {
-            username: inputs.name,
+            username: inputs.userName,
             email: inputs.email,
             password: inputs.password
         }
-        const response =  await axios.post(registerURL, data);
-        if(response){
+        const response = await axios.post(registerURL, data);
+        if (response) {
             return response.data;
         }
-        else{
+        else {
             console.error(response);
         }
     } catch (error) {
         console.error(error)
     }
 }
+export const postFeedback = async (inputs) => {
+    try {
+
+        let data = {
+            feedback: inputs.feedback,
+            user_id: inputs.user_id,
+        }
+        const response = await axios.post(feedbackUrl, data);
+        if (response) {
+            return response.data;
+        }
+        else {
+            console.error(response);
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+export const postNewBook = async (inputs) => {
+    try {
+
+        let data = {
+            title: inputs.title,
+            author: inputs.author,
+            user_id: retriveData('userId'),
+            book_link: inputs.url,
+            book_description: inputs.description,
+            book_format: inputs.type == 'audio' ? 1 : 0
+        }
+
+        const response = await axios.post(addBookUrl, data);
+        if (response) {
+            return response.data;
+        }
+        else {
+            console.error(response);
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 
 export const loginApi = async (inputs) => {
     try {
@@ -40,7 +85,7 @@ export const loginApi = async (inputs) => {
         // };
         const response = await axios.post(loginURL, data);
         // const response = await fetch('http://localhost:8000/login',requestOptions);
-        console.log('from api.js',response);
+        console.log('from api.js', response);
         if (response) {
             return response.data;
         }
@@ -55,9 +100,16 @@ export const loginApi = async (inputs) => {
 
 }
 
-export const getTextBooks = async()=>{
+export const getTextBooks = async () => {
     const response = await axios.get(textBooksUrl);
-    if(response){
+    if (response) {
+        return response.data
+    }
+
+}
+export const getAudioBooks = async () => {
+    const response = await axios.get(audioBooksUrl);
+    if (response) {
         return response.data
     }
 

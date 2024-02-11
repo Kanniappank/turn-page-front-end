@@ -2,6 +2,10 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import { feedbackValidationSchema } from '../Validation Schema/feedback';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { postFeedback } from '../Services/Api';
+import { retriveData } from '../Services/storage';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function FeedBack() {
 
@@ -10,8 +14,17 @@ function FeedBack() {
     });
     const { errors } = formState;
 
-    const onSubmitHandler = (data) => {
+    const onSubmitHandler = async (data) => {
         console.log({ data });
+        data.user_id=retriveData('userId');
+        let response = await postFeedback(data);
+        console.log(response)
+        if(response.success){
+            toast.success(response.message);
+        }
+        else{
+            toast.error('something went wrong pleas try again later');
+        }
         reset();
     };
 
@@ -37,6 +50,7 @@ function FeedBack() {
                     </div>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
 
     )
